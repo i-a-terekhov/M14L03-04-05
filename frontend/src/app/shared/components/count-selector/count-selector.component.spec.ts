@@ -1,4 +1,6 @@
 import {CountSelectorComponent} from "./count-selector.component";
+import {TestBed} from "@angular/core/testing";
+import {FormsModule} from "@angular/forms";
 
 describe('count selector', () => {
 
@@ -43,6 +45,28 @@ describe('count selector', () => {
     });
 
     countSelectorComponent.decreaseCount();
+  });
+
+  it('should change value in input after decreasing', (done: DoneFn) => {
+    TestBed.configureTestingModule({
+      imports: [FormsModule],
+      declarations: [CountSelectorComponent],
+    });
+    const fixture = TestBed.createComponent(CountSelectorComponent);
+    const component = fixture.componentInstance;
+
+    component.count = 5;
+    component.decreaseCount();
+
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      const componentElement: HTMLElement = fixture.nativeElement;
+      const input: HTMLInputElement = componentElement.querySelector('input') as HTMLInputElement;
+
+      expect(input.value).toBe('4');
+      done();
+    });
   });
 
 });
