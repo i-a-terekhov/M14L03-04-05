@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FavoriteService} from "../../../shared/services/favorite.service";
 import {FavoriteType, FavoriteWithCartCountType} from "../../../../types/favorite.type";
 import {DefaultResponseType} from "../../../../types/default-response.type";
@@ -12,7 +12,7 @@ import {forkJoin} from "rxjs";
   templateUrl: './favorite.component.html',
   styleUrls: ['./favorite.component.scss']
 })
-export class FavoriteComponent {
+export class FavoriteComponent implements OnInit {
 
   productsInFavorite: FavoriteType[] = [];
   productsInCart: CartItemType[] | null = null;
@@ -51,7 +51,7 @@ export class FavoriteComponent {
           }
           this.favoriteProductsWithCartCount.push((currentItem as FavoriteWithCartCountType));
         });
-      })
+      });
   }
 
   removeFromFavorites(id: string): void {
@@ -63,7 +63,7 @@ export class FavoriteComponent {
         }
 
         this.favoriteProductsWithCartCount = this.favoriteProductsWithCartCount.filter(item => item.id !== id);
-      })
+      });
   }
 
   addToCart(id: string): void {

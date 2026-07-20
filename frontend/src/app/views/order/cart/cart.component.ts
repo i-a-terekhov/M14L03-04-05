@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OwlOptions} from "ngx-owl-carousel-o";
 import {ProductService} from "../../../shared/services/product.service";
 import {ProductType} from "../../../../types/product.type";
@@ -12,7 +12,7 @@ import {DefaultResponseType} from "../../../../types/default-response.type";
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private cartService: CartService,) {
@@ -44,7 +44,7 @@ export class CartComponent {
       }
     },
     nav: false
-  }
+  };
   cart: CartType | null = null;
   serverStaticPath = environment.serverStaticPath;
   totalAmount: number = 0;
@@ -64,7 +64,7 @@ export class CartComponent {
 
         this.cart = data as CartType;
         this.calculateTotal();
-      })
+      });
   }
 
   calculateTotal() {
@@ -88,7 +88,7 @@ export class CartComponent {
 
           this.cart = data as CartType;
           this.calculateTotal();
-        })
+        });
     }
   }
 

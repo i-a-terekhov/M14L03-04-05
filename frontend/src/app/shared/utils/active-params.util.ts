@@ -3,7 +3,7 @@ import {Params} from "@angular/router";
 
 export class ActiveParamsUtil {
   static processParams(params: Params): ActiveParamsType {
-    const activeParams: ActiveParamsType = {types: []}
+    const activeParams: ActiveParamsType = {types: []};
 
     if (params.hasOwnProperty('types')) {
       activeParams.types = Array.isArray(params['types']) ? params['types'] : [params['types']];

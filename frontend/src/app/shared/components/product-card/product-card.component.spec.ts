@@ -110,7 +110,7 @@ describe('product card', () => {
     productCardComponent.navigate();
 
     expect(routerSpy.navigate).toHaveBeenCalled();
-  })
+  });
 
   it('should not call navigate for full card', () => {
     let routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
@@ -118,6 +118,6 @@ describe('product card', () => {
     productCardComponent.navigate();
 
     expect(routerSpy.navigate).not.toHaveBeenCalled();
-  })
+  });
 
 });

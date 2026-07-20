@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CategoryType} from "../../../../types/category.type";
 import {CategoryWithTypeType} from "../../../../types/category-with-type.type";
 
@@ -7,7 +7,7 @@ import {CategoryWithTypeType} from "../../../../types/category-with-type.type";
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
 
   @Input() categories: CategoryWithTypeType[] = [];
 

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ProductType} from "../../../../types/product.type";
 import {environment} from "../../../../environments/environment";
 import {CartService} from "../../services/cart.service";
@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnInit {
 
   @Input() product!: ProductType;
   serverStaticPath = environment.serverStaticPath;
@@ -89,7 +89,7 @@ export class ProductCardComponent {
           }
 
           this.product.isInFavorite = false;
-        })
+        });
     } else {
       this.favoriteService.addFavorite(this.product.id)
         .subscribe((data: FavoriteType | DefaultResponseType) => {

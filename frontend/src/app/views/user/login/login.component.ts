@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../core/auth/auth.service";
 import {LoginResponseType} from "../../../../types/login-response.type";
@@ -12,13 +12,13 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   loginForm = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required]],
     rememberMe: [false],
-  })
+  });
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -51,7 +51,7 @@ export class LoginComponent {
 
             this.authService.setTokens(loginResponse.accessToken, loginResponse.refreshToken);
             this.authService.userId = loginResponse.userId;
-            this._snackBar.open('Вы успешно авторизовались')
+            this._snackBar.open('Вы успешно авторизовались');
             this.router.navigate(['/']);
           },
           error: (errorResponse: HttpErrorResponse) => {
@@ -61,7 +61,7 @@ export class LoginComponent {
               this._snackBar.open('Ошибка авторизации');
             }
           }
-        })
+        });
     }
   }
 }

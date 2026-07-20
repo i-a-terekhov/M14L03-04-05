@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'count-selector',
   templateUrl: './count-selector.component.html',
   styleUrls: ['./count-selector.component.scss']
 })
-export class CountSelectorComponent {
+export class CountSelectorComponent implements OnInit {
 
   @Input() count: number = 1;
 

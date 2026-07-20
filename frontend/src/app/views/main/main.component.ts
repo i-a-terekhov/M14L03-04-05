@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../../shared/services/product.service";
 import {ProductType} from "../../../types/product.type";
 import {OwlOptions} from "ngx-owl-carousel-o";
@@ -9,7 +9,7 @@ import {AuthService} from "../../core/auth/auth.service";
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
 
   products: ProductType[] = [];
 
@@ -37,7 +37,7 @@ export class MainComponent {
       }
     },
     nav: false
-  }
+  };
 
   customOptionsReviews: OwlOptions = {
     loop: true,
@@ -60,7 +60,7 @@ export class MainComponent {
       }
     },
     nav: false
-  }
+  };
 
   reviews = [
     {
@@ -93,7 +93,7 @@ export class MainComponent {
       image: 'review6.jpg',
       text: 'Для меня всегда важным аспектом было наличие не только физического магазина, но и онлайн-маркета, ведь не всегда есть возможность прийти на место. Ещё нигде не встречала такого огромного ассортимента!'
     },
-  ]
+  ];
 
   isLogged: boolean = false;
 

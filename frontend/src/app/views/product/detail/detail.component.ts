@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OwlOptions} from "ngx-owl-carousel-o";
 import {ProductService} from "../../../shared/services/product.service";
 import {ProductType} from "../../../../types/product.type";
@@ -17,7 +17,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss']
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit {
 
   count: number = 1;
   recommendProducts: ProductType[] = [];
@@ -49,7 +49,7 @@ export class DetailComponent {
       }
     },
     nav: false
-  }
+  };
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -102,13 +102,13 @@ export class DetailComponent {
                 }
               });
           }
-        })
+        });
     });
 
     this.productService.getBestProducts()
       .subscribe((data: ProductType[]) => {
         this.recommendProducts = data;
-      })
+      });
   }
 
   updateCount(value: number) {
@@ -163,7 +163,7 @@ export class DetailComponent {
           }
 
           this.product.isInFavorite = false;
-        })
+        });
     } else {
       this.favoriteService.addFavorite(this.product.id)
         .subscribe((data: FavoriteType | DefaultResponseType) => {

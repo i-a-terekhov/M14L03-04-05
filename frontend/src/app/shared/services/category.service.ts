@@ -31,7 +31,7 @@ export class CategoryService {
                 id: item.id,
                 name: item.name,
                 url: item.url,
-              })
+              });
             } else {
               array.push({
                 id: item.category.id,

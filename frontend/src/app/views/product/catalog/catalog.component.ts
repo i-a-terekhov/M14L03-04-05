@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../../../shared/services/product.service";
 import {ProductType} from "../../../../types/product.type";
 import {CategoryService} from "../../../shared/services/category.service";
@@ -20,7 +20,7 @@ import {AuthService} from "../../../core/auth/auth.service";
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss']
 })
-export class CatalogComponent {
+export class CatalogComponent implements OnInit {
 
   products: ProductType[] = [];
   categoriesWithTypes: CategoryWithTypeType[] = [];
@@ -88,7 +88,7 @@ export class CatalogComponent {
   processCatalog() {
     this.categoryService.getCategoriesWithTypes()
       .subscribe(data => {
-        this.categoriesWithTypes = data
+        this.categoriesWithTypes = data;
 
         this.activatedRoute.queryParams
           .pipe(
@@ -144,13 +144,13 @@ export class CatalogComponent {
                 if (this.cart && this.cart.items.length > 0) {
                   this.products = data.items.map(product => {
                     if (this.cart) {
-                      const productInCart = this.cart.items.find(item => item.product.id === product.id)
+                      const productInCart = this.cart.items.find(item => item.product.id === product.id);
                       if (productInCart) {
-                        product.countInCart = productInCart?.quantity
+                        product.countInCart = productInCart?.quantity;
                       }
                     }
                     return product;
-                  })
+                  });
                 } else {
                   this.products = data.items;
                 }
@@ -162,7 +162,7 @@ export class CatalogComponent {
                       product.isInFavorite = true;
                     }
                     return product;
-                  })
+                  });
                 }
 
               });

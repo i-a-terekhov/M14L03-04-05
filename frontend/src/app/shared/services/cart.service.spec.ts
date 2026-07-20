@@ -8,7 +8,7 @@ describe('cart service', () => {
 
   let cartService: CartService;
   const countValue = 3;
-  let httpServiceSpy: jasmine.SpyObj<HttpClient>
+  let httpServiceSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
     httpServiceSpy = jasmine.createSpyObj('HttpClient', ['get']);

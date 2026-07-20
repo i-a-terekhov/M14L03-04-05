@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
             return throwError(() => error);
           }),
           finalize(() => this.loaderService.hide())
-        )
+        );
     }
 
     return next.handle(req)
@@ -65,14 +65,14 @@ export class AuthInterceptor implements HttpInterceptor {
             headers: req.headers.set('x-access-token', refreshResult.accessToken),
           });
 
-          return next.handle(authReq)
+          return next.handle(authReq);
         }),
         catchError(error => {
           this.authService.removeTokens();
           this.router.navigate(['/']);
           return throwError(() => error);
         })
-      )
+      );
   }
 
 }

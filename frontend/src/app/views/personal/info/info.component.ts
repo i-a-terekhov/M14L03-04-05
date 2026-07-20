@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {PaymentType} from "../../../../types/payment.type";
 import {DeliveryType} from "../../../../types/delivery.type";
@@ -13,7 +13,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss']
 })
-export class InfoComponent {
+export class InfoComponent implements OnInit {
 
   deliveryType: DeliveryType = DeliveryType.delivery;
   userInfoForm = this.fb.group({
@@ -56,7 +56,7 @@ export class InfoComponent {
           house: userInfo.house ? userInfo.house : '',
           entrance: userInfo.entrance ? userInfo.entrance : '',
           apartment: userInfo.apartment ? userInfo.apartment : '',
-        }
+        };
 
         this.userInfoForm.setValue(paramsToUpdate);
         if (userInfo.deliveryType) {
@@ -77,7 +77,7 @@ export class InfoComponent {
         email: this.userInfoForm.value.email ? this.userInfoForm.value.email : '',
         deliveryType: this.deliveryType,
         paymentType: this.userInfoForm.value.paymentType ? this.userInfoForm.value.paymentType : PaymentType.cashToCourier,
-      }
+      };
 
       if (this.userInfoForm.value.firstName) {
         paramObject.firstName = this.userInfoForm.value.firstName;

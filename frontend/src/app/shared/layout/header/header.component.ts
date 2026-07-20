@@ -1,4 +1,4 @@
-import {Component, HostListener, Input} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {AuthService} from "../../../core/auth/auth.service";
 import {DefaultResponseType} from "../../../../types/default-response.type";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -16,7 +16,7 @@ import {debounceTime} from "rxjs";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   searchField = new FormControl();
   showedSearch: boolean = false;
@@ -61,7 +61,7 @@ export class HeaderComponent {
     this.cartService.count$
       .subscribe(count => {
         this.count = count;
-      })
+      });
   }
 
   getCartCount() {
@@ -84,7 +84,7 @@ export class HeaderComponent {
         error: () => {
           this.doLogout();
         }
-      })
+      });
   }
 
   doLogout(): void {

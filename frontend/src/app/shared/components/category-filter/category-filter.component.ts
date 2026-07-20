@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CategoryWithTypeType} from "../../../../types/category-with-type.type";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ActiveParamsType} from "../../../../types/active-params.type";
@@ -9,7 +9,7 @@ import {ActiveParamsUtil} from "../../utils/active-params.util";
   templateUrl: './category-filter.component.html',
   styleUrls: ['./category-filter.component.scss']
 })
-export class CategoryFilterComponent {
+export class CategoryFilterComponent implements OnInit {
 
   @Input() categoryWithTypes: CategoryWithTypeType | null = null;
   @Input() type: string | null = null;
@@ -21,7 +21,7 @@ export class CategoryFilterComponent {
 
   get title(): string {
     if (this.categoryWithTypes) {
-      return this.categoryWithTypes.name
+      return this.categoryWithTypes.name;
     } else if (this.type) {
       if (this.type === 'height') {
         return 'Высота';
@@ -74,7 +74,7 @@ export class CategoryFilterComponent {
     if (this.activeParams.types && this.activeParams.types.length > 0) {
       const existingTypeParams = this.activeParams.types.find(item => item === url);
       if (existingTypeParams && !checked) {
-        this.activeParams.types = this.activeParams.types.filter(item => item !== url)
+        this.activeParams.types = this.activeParams.types.filter(item => item !== url);
       } else if (!existingTypeParams && checked) {
         // this.activeParams.types.push(url);
         this.activeParams.types = [...this.activeParams.types, url];

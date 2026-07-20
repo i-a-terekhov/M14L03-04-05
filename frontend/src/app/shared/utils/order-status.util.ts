@@ -22,6 +22,6 @@ export class OrderStatusUtil {
         break;
     }
 
-    return {name, color}
+    return {name, color};
   }
 }

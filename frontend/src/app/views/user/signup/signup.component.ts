@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../../core/auth/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -12,14 +12,14 @@ import {HttpErrorResponse} from "@angular/common/http";
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
 
   signupForm = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
     passwordRepeat: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
     agree: [false, [Validators.requiredTrue]],
-  })
+  });
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -54,7 +54,7 @@ export class SignupComponent {
 
             this.authService.setTokens(loginResponse.accessToken, loginResponse.refreshToken);
             this.authService.userId = loginResponse.userId;
-            this._snackBar.open('Вы успешно зарегистрировались')
+            this._snackBar.open('Вы успешно зарегистрировались');
             this.router.navigate(['/']);
           },
           error: (errorResponse: HttpErrorResponse) => {
@@ -64,7 +64,7 @@ export class SignupComponent {
               this._snackBar.open('Ошибка регистрации');
             }
           }
-        })
+        });
     }
   }
 

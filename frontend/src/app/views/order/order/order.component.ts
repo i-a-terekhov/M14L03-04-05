@@ -1,4 +1,4 @@
-import {Component, ElementRef, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {CartService} from "../../../shared/services/cart.service";
 import {CartType} from "../../../../types/cart.type";
 import {DefaultResponseType} from "../../../../types/default-response.type";
@@ -21,7 +21,7 @@ import {AuthService} from "../../../core/auth/auth.service";
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent {
+export class OrderComponent implements OnInit {
 
   deliveryType: DeliveryType = DeliveryType.delivery;
   cart: CartType | null = null;
@@ -94,7 +94,7 @@ export class OrderComponent {
             entrance: userInfo.entrance ? userInfo.entrance : '',
             apartment: userInfo.apartment ? userInfo.apartment : '',
             comment: '',
-          }
+          };
 
           this.orderForm.setValue(paramsToUpdate);
           if (userInfo.deliveryType) {
