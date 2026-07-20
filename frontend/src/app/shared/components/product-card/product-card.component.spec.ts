@@ -6,11 +6,13 @@ import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FavoriteService} from "../../services/favorite.service";
 import {of} from "rxjs";
+import {ProductType} from "../../../../types/product.type";
 
 describe('product card', () => {
 
   let productCardComponent: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
+  let product: ProductType;
 
   beforeEach(() => {
     const cartServiceSpy = jasmine.createSpyObj("CartService", ['updateCart']);
@@ -31,6 +33,25 @@ describe('product card', () => {
     });
     fixture = TestBed.createComponent(ProductCardComponent);
     productCardComponent = fixture.componentInstance;
+
+    product = {
+      id: 'test',
+      name: 'test',
+      price: 1,
+      image: 'test',
+      lightning: 'test',
+      humidity: 'test',
+      temperature: 'test',
+      height: 1,
+      diameter: 1,
+      url: 'test',
+      type: {
+        id: 'test',
+        name: 'test',
+        url: 'test',
+      },
+    };
+
   });
 
   it('should have count init value 1', () => {
@@ -61,29 +82,26 @@ describe('product card', () => {
       }
     ));
 
-    const product = {
-      id: 'test',
-      name: 'test',
-      price: 1,
-      image: 'test',
-      lightning: 'test',
-      humidity: 'test',
-      temperature: 'test',
-      height: 1,
-      diameter: 1,
-      url: 'test',
-      type: {
-        id: 'test',
-        name: 'test',
-        url: 'test',
-      },
-    };
-
     productCardComponent.product = product;
 
     productCardComponent.removeFromCart();
 
     expect(cartServiceSpy.updateCart).toHaveBeenCalledWith(product.id, 0);
+  });
+
+  it('should hide product-card-info and product-card-extra if it is light card', () => {
+    productCardComponent.isLight = true;
+    productCardComponent.product = product;
+
+    fixture.detectChanges();
+
+    const componentElement: HTMLElement = fixture.nativeElement;
+    console.log(componentElement);
+    const productCardInfo: HTMLElement | null = componentElement.querySelector('.product-card-info');
+    const productCardExtra: HTMLElement | null = componentElement.querySelector('.product-card-extra');
+
+    expect(productCardInfo).toBe(null);
+    expect(productCardExtra).toBe(null);
   });
 
 });
