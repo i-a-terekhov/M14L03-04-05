@@ -1,5 +1,5 @@
-import {DeliveryType} from "./delivery.type";
-import {PaymentType} from "./payment.type";
+import { DeliveryType } from './delivery.type';
+import { PaymentType } from './payment.type';
 
 export type UserInfoType = {
   deliveryType?: DeliveryType,

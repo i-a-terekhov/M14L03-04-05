@@ -1,17 +1,23 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {catchError, finalize, Observable, switchMap, throwError} from "rxjs";
-import {Injectable} from "@angular/core";
-import {AuthService} from "./auth.service";
-import {DefaultResponseType} from "../../../types/default-response.type";
-import {LoginResponseType} from "../../../types/login-response.type";
-import {Router} from "@angular/router";
-import {LoaderService} from "../../shared/services/loader.service";
+import {
+  HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
+} from '@angular/common/http';
+import {
+  catchError, finalize, Observable, switchMap, throwError,
+} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
+import { DefaultResponseType } from '../../../types/default-response.type';
+import { LoginResponseType } from '../../../types/login-response.type';
+import { LoaderService } from '../../shared/services/loader.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
-  constructor(private authService: AuthService, private router: Router,
-              private loaderService: LoaderService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private loaderService: LoaderService,
+  ) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -31,13 +37,13 @@ export class AuthInterceptor implements HttpInterceptor {
             }
             return throwError(() => error);
           }),
-          finalize(() => this.loaderService.hide())
+          finalize(() => this.loaderService.hide()),
         );
     }
 
     return next.handle(req)
       .pipe(
-        finalize(() => this.loaderService.hide())
+        finalize(() => this.loaderService.hide()),
       );
   }
 
@@ -67,12 +73,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
           return next.handle(authReq);
         }),
-        catchError(error => {
+        catchError((error) => {
           this.authService.removeTokens();
           this.router.navigate(['/']);
           return throwError(() => error);
-        })
+        }),
       );
   }
-
 }

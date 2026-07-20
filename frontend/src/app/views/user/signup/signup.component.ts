@@ -1,19 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {AuthService} from "../../../core/auth/auth.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Router} from "@angular/router";
-import {DefaultResponseType} from "../../../../types/default-response.type";
-import {LoginResponseType} from "../../../../types/login-response.type";
-import {HttpErrorResponse} from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../../core/auth/auth.service';
+import { DefaultResponseType } from '../../../../types/default-response.type';
+import { LoginResponseType } from '../../../../types/login-response.type';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-
   signupForm = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
@@ -21,17 +20,18 @@ export class SignupComponent implements OnInit {
     agree: [false, [Validators.requiredTrue]],
   });
 
-  constructor(private fb: FormBuilder,
-              private authService: AuthService,
-              private _snackBar: MatSnackBar,
-              private router: Router,) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar,
+    private router: Router,
+  ) {
   }
 
   ngOnInit() {
   }
 
   signup(): void {
-
     if (this.signupForm.valid && this.signupForm.value.email && this.signupForm.value.password
       && this.signupForm.value.passwordRepeat && this.signupForm.value.agree) {
       this.authService.signup(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.passwordRepeat)
@@ -63,9 +63,8 @@ export class SignupComponent implements OnInit {
             } else {
               this._snackBar.open('Ошибка регистрации');
             }
-          }
+          },
         });
     }
   }
-
 }

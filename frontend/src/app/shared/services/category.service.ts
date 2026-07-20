@@ -1,30 +1,29 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
-import {CategoryType} from "../../../types/category.type";
-import {environment} from "../../../environments/environment.development";
-import {TypeType} from "../../../types/type.type";
-import {CategoryWithTypeType} from "../../../types/category-with-type.type";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+import { CategoryType } from '../../../types/category.type';
+import { environment } from '../../../environments/environment.development';
+import { TypeType } from '../../../types/type.type';
+import { CategoryWithTypeType } from '../../../types/category-with-type.type';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
-
   constructor(private http: HttpClient) {
   }
 
   getCategories(): Observable<CategoryType[]> {
-    return this.http.get<CategoryType[]>(environment.api + 'categories');
+    return this.http.get<CategoryType[]>(`${environment.api}categories`);
   }
 
   getCategoriesWithTypes(): Observable<CategoryWithTypeType[]> {
-    return this.http.get<TypeType[]>(environment.api + 'types')
+    return this.http.get<TypeType[]>(`${environment.api}types`)
       .pipe(
         map((items) => {
           const array: CategoryWithTypeType[] = [];
           items.forEach((item: TypeType) => {
-            const foundItem = array.find(arrayItem => arrayItem.url === item.category.url);
+            const foundItem = array.find((arrayItem) => arrayItem.url === item.category.url);
 
             if (foundItem) {
               foundItem.types.push({
@@ -42,13 +41,13 @@ export class CategoryService {
                     id: item.id,
                     name: item.name,
                     url: item.url,
-                  }]
+                  }],
               });
             }
           });
 
           return array;
-        })
+        }),
       );
   }
 }

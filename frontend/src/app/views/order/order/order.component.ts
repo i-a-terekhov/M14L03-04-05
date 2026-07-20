@@ -1,33 +1,39 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {CartService} from "../../../shared/services/cart.service";
-import {CartType} from "../../../../types/cart.type";
-import {DefaultResponseType} from "../../../../types/default-response.type";
-import {Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {DeliveryType} from "../../../../types/delivery.type";
-import {FormBuilder, Validators} from "@angular/forms";
-import {PaymentType} from "../../../../types/payment.type";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {
+  Component, ElementRef, OnInit, TemplateRef, ViewChild,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CartService } from '../../../shared/services/cart.service';
+import { CartType } from '../../../../types/cart.type';
+import { DefaultResponseType } from '../../../../types/default-response.type';
+import { DeliveryType } from '../../../../types/delivery.type';
+import { PaymentType } from '../../../../types/payment.type';
 // лишняя строчка для соответствия видео-уроку
-import {OrderService} from "../../../shared/services/order.service";
-import {OrderType} from "../../../../types/order.type";
-import {HttpErrorResponse} from "@angular/common/http";
-import {UserService} from "../../../shared/services/user.service";
-import {UserInfoType} from "../../../../types/user-info.type";
-import {AuthService} from "../../../core/auth/auth.service";
+import { OrderService } from '../../../shared/services/order.service';
+import { OrderType } from '../../../../types/order.type';
+import { UserService } from '../../../shared/services/user.service';
+import { UserInfoType } from '../../../../types/user-info.type';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss']
+  styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent implements OnInit {
-
   deliveryType: DeliveryType = DeliveryType.delivery;
+
   cart: CartType | null = null;
+
   totalAmount: number = 0;
+
   totalCount: number = 0;
+
   deliveryTypes = DeliveryType;
+
   paymentTypes = PaymentType;
 
   orderForm = this.fb.group({
@@ -43,17 +49,21 @@ export class OrderComponent implements OnInit {
     apartment: [''],
     comment: [''],
   });
+
   @ViewChild('popup') popup!: TemplateRef<ElementRef>;
+
   dialogRef: MatDialogRef<any> | null = null;
 
-  constructor(private cartService: CartService,
-              private router: Router,
-              private orderService: OrderService,
-              private userService: UserService,
-              private authService: AuthService,
-              private _snackBar: MatSnackBar,
-              private dialog: MatDialog,
-              private fb: FormBuilder,) {
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private orderService: OrderService,
+    private userService: UserService,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+  ) {
     this.updateDeliveryTypeValidation();
   }
 
@@ -108,7 +118,7 @@ export class OrderComponent implements OnInit {
     this.totalAmount = 0;
     this.totalCount = 0;
     if (this.cart) {
-      this.cart.items.forEach(item => {
+      this.cart.items.forEach((item) => {
         this.totalAmount += item.quantity * item.product.price;
         this.totalCount += item.quantity;
       });
@@ -140,7 +150,6 @@ export class OrderComponent implements OnInit {
   createOrder() {
     if (this.orderForm.valid && this.orderForm.value.firstName && this.orderForm.value.lastName
       && this.orderForm.value.phone && this.orderForm.value.paymentType && this.orderForm.value.email) {
-
       const paramsObject: OrderType = {
         deliveryType: this.deliveryType,
         firstName: this.orderForm.value.firstName,
@@ -189,7 +198,7 @@ export class OrderComponent implements OnInit {
             } else {
               this._snackBar.open('Ошибка заказа');
             }
-          }
+          },
         });
     } else {
       this.orderForm.markAllAsTouched();

@@ -1,34 +1,40 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ProductType} from "../../../../types/product.type";
-import {environment} from "../../../../environments/environment";
-import {CartService} from "../../services/cart.service";
-import {CartType} from "../../../../types/cart.type";
-import {DefaultResponseType} from "../../../../types/default-response.type";
-import {FavoriteType} from "../../../../types/favorite.type";
-import {AuthService} from "../../../core/auth/auth.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {FavoriteService} from "../../services/favorite.service";
-import {Router} from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { ProductType } from '../../../../types/product.type';
+import { environment } from '../../../../environments/environment';
+import { CartService } from '../../services/cart.service';
+import { CartType } from '../../../../types/cart.type';
+import { DefaultResponseType } from '../../../../types/default-response.type';
+import { FavoriteType } from '../../../../types/favorite.type';
+import { AuthService } from '../../../core/auth/auth.service';
+import { FavoriteService } from '../../services/favorite.service';
 
 @Component({
   selector: 'product-card',
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.scss']
+  styleUrls: ['./product-card.component.scss'],
 })
 export class ProductCardComponent implements OnInit {
-
   @Input() product!: ProductType;
+
   serverStaticPath = environment.serverStaticPath;
+
   count: number = 1;
+
   @Input() isLight: boolean = false;
+
   @Input() countInCart: number | undefined = 0;
+
   @Input() isLogged: boolean = false;
 
-  constructor(private cartService: CartService,
-              private authService: AuthService,
-              private router: Router,
-              private _snackBar: MatSnackBar,
-              private favoriteService: FavoriteService,) {
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService,
+    private router: Router,
+    private _snackBar: MatSnackBar,
+    private favoriteService: FavoriteService,
+  ) {
   }
 
   ngOnInit() {
@@ -84,7 +90,7 @@ export class ProductCardComponent implements OnInit {
       this.favoriteService.removeFavorite(this.product.id)
         .subscribe((data: DefaultResponseType) => {
           if (data.error) {
-            //..
+            // ..
             throw new Error(data.message);
           }
 
@@ -104,8 +110,7 @@ export class ProductCardComponent implements OnInit {
 
   navigate() {
     if (this.isLight) {
-      this.router.navigate(['/product/' + this.product.url]);
+      this.router.navigate([`/product/${this.product.url}`]);
     }
   }
-
 }

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CategoryService} from "../services/category.service";
-import {CategoryType} from "../../../types/category.type";
-import {CategoryWithTypeType} from "../../../types/category-with-type.type";
+import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../services/category.service';
+import { CategoryType } from '../../../types/category.type';
+import { CategoryWithTypeType } from '../../../types/category-with-type.type';
 
 @Component({
   selector: 'app-layout',
@@ -10,15 +10,13 @@ import {CategoryWithTypeType} from "../../../types/category-with-type.type";
 export class LayoutComponent implements OnInit {
   categories: CategoryWithTypeType[] = [];
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService) {
+  }
 
   ngOnInit() {
     this.categoryService.getCategoriesWithTypes()
       .subscribe((categories: CategoryWithTypeType[]) => {
-        this.categories = categories.map(item => {
-          return Object.assign({typesUrl: item.types.map(item => item.url)}, item);
-        });
+        this.categories = categories.map((item) => ({ typesUrl: item.types.map((item) => item.url), ...item }));
       });
   }
-
 }

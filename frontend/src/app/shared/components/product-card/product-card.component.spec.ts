@@ -1,37 +1,36 @@
-import {ProductCardComponent} from "./product-card.component";
-import {ComponentFixture, TestBed} from "@angular/core/testing";
-import {CartService} from "../../services/cart.service";
-import {AuthService} from "../../../core/auth/auth.service";
-import {Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {FavoriteService} from "../../services/favorite.service";
-import {of} from "rxjs";
-import {ProductType} from "../../../../types/product.type";
-import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { of } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ProductCardComponent } from './product-card.component';
+import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../../core/auth/auth.service';
+import { FavoriteService } from '../../services/favorite.service';
+import { ProductType } from '../../../../types/product.type';
 
 describe('product card', () => {
-
   let productCardComponent: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
   let product: ProductType;
 
   beforeEach(() => {
-    const cartServiceSpy = jasmine.createSpyObj("CartService", ['updateCart']);
-    const authServiceSpy = jasmine.createSpyObj("AuthService", ['getIsLoggedIn']);
-    const routerSpy = jasmine.createSpyObj("Router", ['navigate']);
-    const _snackBarSpy = jasmine.createSpyObj("MatSnackBar", ['open']);
-    const favoriteServiceSpy = jasmine.createSpyObj("FavoriteService", ['removeFavorite', 'addFavorite']);
+    const cartServiceSpy = jasmine.createSpyObj('CartService', ['updateCart']);
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['getIsLoggedIn']);
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    const _snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
+    const favoriteServiceSpy = jasmine.createSpyObj('FavoriteService', ['removeFavorite', 'addFavorite']);
 
     TestBed.configureTestingModule({
       declarations: [ProductCardComponent],
       providers: [
-        {provide: CartService, useValue: cartServiceSpy},
-        {provide: AuthService, useValue: authServiceSpy},
-        {provide: Router, useValue: routerSpy},
-        {provide: MatSnackBar, useValue: _snackBarSpy},
-        {provide: FavoriteService, useValue: favoriteServiceSpy},
+        { provide: CartService, useValue: cartServiceSpy },
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: Router, useValue: routerSpy },
+        { provide: MatSnackBar, useValue: _snackBarSpy },
+        { provide: FavoriteService, useValue: favoriteServiceSpy },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
     fixture = TestBed.createComponent(ProductCardComponent);
     productCardComponent = fixture.componentInstance;
@@ -53,9 +52,8 @@ describe('product card', () => {
         url: 'test',
       },
     };
-    productCardComponent.product = product;  // Пока productCardComponent.product не был задан в beforeEach, тесты завершались до отрисовки шаблона. Как только вы перенесли сюда product,
+    productCardComponent.product = product; // Пока productCardComponent.product не был задан в beforeEach, тесты завершались до отрисовки шаблона. Как только вы перенесли сюда product,
     // тесты стали ближе к реальности и некоторые стали выкидывать ошибку, т.к. модуль тестов не импортировал CountSelectorComponent - это ошибка диктора
-
   });
 
   it('should have count init value 1', () => {
@@ -64,27 +62,26 @@ describe('product card', () => {
 
   it('should set value from input countInCart to count', () => {
     productCardComponent.count = 5;
-    fixture.detectChanges();  // эта функция запускает цикл отслеживания изменений
+    fixture.detectChanges(); // эта функция запускает цикл отслеживания изменений
     expect(productCardComponent.count).toBe(5);
   });
 
   it('should call removeFromCart with count = 0', () => {
-    let cartServiceSpy = TestBed.inject(CartService) as jasmine.SpyObj<CartService>;
+    const cartServiceSpy = TestBed.inject(CartService) as jasmine.SpyObj<CartService>;
     cartServiceSpy.updateCart.and.returnValue(of({
-        items: [
-          {
-            product: {
-              id: '1',
-              name: '1',
-              price: 1,
-              image: '1',
-              url: '1',
-            },
-            quantity: 1,
-          }
-        ]
-      }
-    ));
+      items: [
+        {
+          product: {
+            id: '1',
+            name: '1',
+            price: 1,
+            image: '1',
+            url: '1',
+          },
+          quantity: 1,
+        },
+      ],
+    }));
     // productCardComponent.product = product;  // Вынесли эту строку в beforeEach
 
     productCardComponent.removeFromCart();
@@ -93,7 +90,7 @@ describe('product card', () => {
   });
 
   it('should hide product-card-info and product-card-extra if it is light card', () => {
-    productCardComponent.isLight = true;    // productCardComponent.product = product;  // Вынесли эту строку в beforeEach
+    productCardComponent.isLight = true; // productCardComponent.product = product;  // Вынесли эту строку в beforeEach
     fixture.detectChanges();
 
     const componentElement: HTMLElement = fixture.nativeElement;
@@ -105,19 +102,18 @@ describe('product card', () => {
   });
 
   it('should call navigate for light card', () => {
-    let routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    productCardComponent.isLight = true;    // productCardComponent.product = product;  // Вынесли эту строку в beforeEach
+    const routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    productCardComponent.isLight = true; // productCardComponent.product = product;  // Вынесли эту строку в beforeEach
     productCardComponent.navigate();
 
     expect(routerSpy.navigate).toHaveBeenCalled();
   });
 
   it('should not call navigate for full card', () => {
-    let routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    const routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     productCardComponent.isLight = false;
     productCardComponent.navigate();
 
     expect(routerSpy.navigate).not.toHaveBeenCalled();
   });
-
 });

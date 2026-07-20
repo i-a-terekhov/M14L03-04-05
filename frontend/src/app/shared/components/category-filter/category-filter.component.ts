@@ -1,31 +1,36 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CategoryWithTypeType} from "../../../../types/category-with-type.type";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ActiveParamsType} from "../../../../types/active-params.type";
-import {ActiveParamsUtil} from "../../utils/active-params.util";
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryWithTypeType } from '../../../../types/category-with-type.type';
+import { ActiveParamsType } from '../../../../types/active-params.type';
+import { ActiveParamsUtil } from '../../utils/active-params.util';
 
 @Component({
   selector: 'category-filter',
   templateUrl: './category-filter.component.html',
-  styleUrls: ['./category-filter.component.scss']
+  styleUrls: ['./category-filter.component.scss'],
 })
 export class CategoryFilterComponent implements OnInit {
-
   @Input() categoryWithTypes: CategoryWithTypeType | null = null;
+
   @Input() type: string | null = null;
+
   open = false;
-  activeParams: ActiveParamsType = {types: []};
+
+  activeParams: ActiveParamsType = { types: [] };
 
   from: number | null = null;
+
   to: number | null = null;
 
   get title(): string {
     if (this.categoryWithTypes) {
       return this.categoryWithTypes.name;
-    } else if (this.type) {
+    }
+    if (this.type) {
       if (this.type === 'height') {
         return 'Высота';
-      } else if (this.type === 'diameter') {
+      }
+      if (this.type === 'diameter') {
         return 'Диаметр';
       }
     }
@@ -37,7 +42,7 @@ export class CategoryFilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activateRoute.queryParams.subscribe(params => {
+    this.activateRoute.queryParams.subscribe((params) => {
       this.activeParams = ActiveParamsUtil.processParams(params);
 
       if (this.type) {
@@ -56,14 +61,12 @@ export class CategoryFilterComponent implements OnInit {
         }
 
         if (this.categoryWithTypes && this.categoryWithTypes.types
-          && this.categoryWithTypes.types.length > 0 &&
-          this.categoryWithTypes.types.some(type => this.activeParams.types.find(item => type.url === item))) {
+          && this.categoryWithTypes.types.length > 0
+          && this.categoryWithTypes.types.some((type) => this.activeParams.types.find((item) => type.url === item))) {
           this.open = true;
         }
       }
-
     });
-
   }
 
   toggle(): void {
@@ -72,9 +75,9 @@ export class CategoryFilterComponent implements OnInit {
 
   updateFilterParam(url: string, checked: boolean): void {
     if (this.activeParams.types && this.activeParams.types.length > 0) {
-      const existingTypeParams = this.activeParams.types.find(item => item === url);
+      const existingTypeParams = this.activeParams.types.find((item) => item === url);
       if (existingTypeParams && !checked) {
-        this.activeParams.types = this.activeParams.types.filter(item => item !== url);
+        this.activeParams.types = this.activeParams.types.filter((item) => item !== url);
       } else if (!existingTypeParams && checked) {
         // this.activeParams.types.push(url);
         this.activeParams.types = [...this.activeParams.types, url];
@@ -85,7 +88,7 @@ export class CategoryFilterComponent implements OnInit {
 
     this.activeParams.page = 1;
     this.router.navigate(['/catalog'], {
-      queryParams: this.activeParams
+      queryParams: this.activeParams,
     });
   }
 
@@ -99,9 +102,8 @@ export class CategoryFilterComponent implements OnInit {
 
       this.activeParams.page = 1;
       this.router.navigate(['/catalog'], {
-        queryParams: this.activeParams
+        queryParams: this.activeParams,
       });
     }
   }
-
 }

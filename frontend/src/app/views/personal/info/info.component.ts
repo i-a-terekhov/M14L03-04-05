@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {PaymentType} from "../../../../types/payment.type";
-import {DeliveryType} from "../../../../types/delivery.type";
-import {UserService} from "../../../shared/services/user.service";
-import {DefaultResponseType} from "../../../../types/default-response.type";
-import {UserInfoType} from "../../../../types/user-info.type";
-import {HttpErrorResponse} from "@angular/common/http";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PaymentType } from '../../../../types/payment.type';
+import { DeliveryType } from '../../../../types/delivery.type';
+import { UserService } from '../../../shared/services/user.service';
+import { DefaultResponseType } from '../../../../types/default-response.type';
+import { UserInfoType } from '../../../../types/user-info.type';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss']
+  styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
-
   deliveryType: DeliveryType = DeliveryType.delivery;
+
   userInfoForm = this.fb.group({
     firstName: [''],
     lastName: [''],
@@ -28,12 +28,16 @@ export class InfoComponent implements OnInit {
     entrance: [''],
     apartment: [''],
   });
+
   deliveryTypes = DeliveryType;
+
   paymentTypes = PaymentType;
 
-  constructor(private fb: FormBuilder,
-              private userService: UserService,
-              private _snackBar: MatSnackBar,) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private _snackBar: MatSnackBar,
+  ) {
   }
 
   ngOnInit(): void {
@@ -72,7 +76,6 @@ export class InfoComponent implements OnInit {
 
   updateUserInfo() {
     if (this.userInfoForm.valid) {
-
       const paramObject: UserInfoType = {
         email: this.userInfoForm.value.email ? this.userInfoForm.value.email : '',
         deliveryType: this.deliveryType,
@@ -124,8 +127,5 @@ export class InfoComponent implements OnInit {
           },
         });
     }
-
-
   }
-
 }

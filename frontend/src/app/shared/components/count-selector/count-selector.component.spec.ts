@@ -1,9 +1,8 @@
-import {CountSelectorComponent} from "./count-selector.component";
-import {ComponentFixture, TestBed} from "@angular/core/testing";
-import {FormsModule} from "@angular/forms";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { CountSelectorComponent } from './count-selector.component';
 
 describe('count selector', () => {
-
   let countSelectorComponent: CountSelectorComponent;
   let fixture: ComponentFixture<CountSelectorComponent>;
 
@@ -35,7 +34,7 @@ describe('count selector', () => {
   it('should emit value +1 after increasing', (done: DoneFn) => {
     countSelectorComponent.count = 1;
 
-    countSelectorComponent.onCountChange.subscribe(newValue => {
+    countSelectorComponent.onCountChange.subscribe((newValue) => {
       expect(newValue).toBe(2);
       done();
     });
@@ -46,7 +45,7 @@ describe('count selector', () => {
   it('should emit value -1 after decreasing', (done: DoneFn) => {
     countSelectorComponent.count = 5;
 
-    countSelectorComponent.onCountChange.subscribe(newValue => {
+    countSelectorComponent.onCountChange.subscribe((newValue) => {
       expect(newValue).toBe(4);
       done();
     });
@@ -68,5 +67,4 @@ describe('count selector', () => {
       done();
     });
   });
-
 });

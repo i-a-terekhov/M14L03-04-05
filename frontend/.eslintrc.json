@@ -12,7 +12,8 @@
 //        "eslint:recommended",
 //        "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "eslint-config-airbnb-base"
       ],
       "rules": {
         "semi": "error",
@@ -31,7 +32,9 @@
             "prefix": "",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "dot-notation": "off",
+        "@typescript-eslint/dot-notation": ["error", { "allowIndexSignaturePropertyAccess": true }]
       }
     },
     {

@@ -1,21 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {OwlOptions} from "ngx-owl-carousel-o";
-import {ProductService} from "../../../shared/services/product.service";
-import {ProductType} from "../../../../types/product.type";
-import {CartService} from "../../../shared/services/cart.service";
-import {CartType} from "../../../../types/cart.type";
-import {environment} from "../../../../environments/environment";
-import {DefaultResponseType} from "../../../../types/default-response.type";
+import { Component, OnInit } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ProductService } from '../../../shared/services/product.service';
+import { ProductType } from '../../../../types/product.type';
+import { CartService } from '../../../shared/services/cart.service';
+import { CartType } from '../../../../types/cart.type';
+import { environment } from '../../../../environments/environment';
+import { DefaultResponseType } from '../../../../types/default-response.type';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-
-  constructor(private productService: ProductService,
-              private cartService: CartService,) {
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+  ) {
   }
 
   extraProducts: ProductType[] = [];
@@ -31,23 +32,27 @@ export class CartComponent implements OnInit {
     navText: ['', ''],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       400: {
-        items: 2
+        items: 2,
       },
       740: {
-        items: 3
+        items: 3,
       },
       940: {
-        items: 4
-      }
+        items: 4,
+      },
     },
-    nav: false
+    nav: false,
   };
+
   cart: CartType | null = null;
+
   serverStaticPath = environment.serverStaticPath;
+
   totalAmount: number = 0;
+
   totalCount: number = 0;
 
   ngOnInit() {
@@ -71,7 +76,7 @@ export class CartComponent implements OnInit {
     this.totalAmount = 0;
     this.totalCount = 0;
     if (this.cart) {
-      this.cart.items.forEach(item => {
+      this.cart.items.forEach((item) => {
         this.totalAmount += item.quantity * item.product.price;
         this.totalCount += item.quantity;
       });
@@ -91,5 +96,4 @@ export class CartComponent implements OnInit {
         });
     }
   }
-
 }
