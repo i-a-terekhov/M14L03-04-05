@@ -22,13 +22,13 @@ export class CartService {
   }
 
   getCart(): Observable<CartType | DefaultResponseType> {
-    return this.http.get<CartType | DefaultResponseType>(`${environment.api}cart`, {withCredentials: true});
+    return this.http.get<CartType | DefaultResponseType>(`${environment.api}cart`, { withCredentials: true });
   }
 
   getCartCount(): Observable<{ count: number } | DefaultResponseType> {
     return this.http.get<{
       count: number
-    } | DefaultResponseType>(`${environment.api}cart/count`, {withCredentials: true})
+    } | DefaultResponseType>(`${environment.api}cart/count`, { withCredentials: true })
       .pipe(
         tap((data) => {
           if (!data.hasOwnProperty('error')) {
@@ -42,7 +42,7 @@ export class CartService {
     return this.http.post<CartType | DefaultResponseType>(`${environment.api}cart`, {
       productId,
       quantity,
-    }, {withCredentials: true})
+    }, { withCredentials: true })
       .pipe(
         tap((data) => {
           if (!data.hasOwnProperty('error')) {

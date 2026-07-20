@@ -66,7 +66,7 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params) => {
       this.productService.getProduct(params['url'])
         .subscribe((data: ProductType) => {
           this.product = data;
@@ -80,7 +80,7 @@ export class DetailComponent implements OnInit {
               const cartDataResponse = cartData as CartType;
 
               if (cartDataResponse) {
-                const productInCart = cartDataResponse.items.find(item => item.product.id === this.product.id);
+                const productInCart = cartDataResponse.items.find((item) => item.product.id === this.product.id);
                 if (productInCart) {
                   this.product.countInCart = productInCart.quantity;
                   this.count = this.product.countInCart;

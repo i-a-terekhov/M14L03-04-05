@@ -5,7 +5,7 @@ import {
 
 @Directive({
   selector: '[passwordRepeat]',
-  providers: [{provide: NG_VALIDATORS, useExisting: PasswordRepeatDirective, multi: true}],
+  providers: [{ provide: NG_VALIDATORS, useExisting: PasswordRepeatDirective, multi: true }],
 })
 export class PasswordRepeatDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
@@ -13,8 +13,8 @@ export class PasswordRepeatDirective implements Validator {
     const passwordRepeat = control.get('passwordRepeat');
 
     if (password?.value !== passwordRepeat?.value) {
-      passwordRepeat?.setErrors({passwordRepeat: true});
-      return {passwordRepeat: true};
+      passwordRepeat?.setErrors({ passwordRepeat: true });
+      return { passwordRepeat: true };
     }
     return null;
   }

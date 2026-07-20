@@ -16,7 +16,7 @@ export class CategoryFilterComponent implements OnInit {
 
   open = false;
 
-  activeParams: ActiveParamsType = {types: []};
+  activeParams: ActiveParamsType = { types: [] };
 
   from: number | null = null;
 

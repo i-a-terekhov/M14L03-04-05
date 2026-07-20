@@ -25,17 +25,17 @@ export class CatalogComponent implements OnInit {
 
   categoriesWithTypes: CategoryWithTypeType[] = [];
 
-  activeParams: ActiveParamsType = {types: []};
+  activeParams: ActiveParamsType = { types: [] };
 
   appliedFilters: AppliedFilterType[] = [];
 
   sortingOpen = false;
 
   sortingOptions: { name: string, value: string }[] = [
-    {name: 'От А до Я', value: 'az-asc'},
-    {name: 'От Я до А', value: 'az-desc'},
-    {name: 'По возрастанию цены', value: 'price-asc'},
-    {name: 'По убыванию цены', value: 'price-desc'},
+    { name: 'От А до Я', value: 'az-asc' },
+    { name: 'От Я до А', value: 'az-desc' },
+    { name: 'По возрастанию цены', value: 'price-asc' },
+    { name: 'По убыванию цены', value: 'price-desc' },
   ];
 
   pages: number[] = [];

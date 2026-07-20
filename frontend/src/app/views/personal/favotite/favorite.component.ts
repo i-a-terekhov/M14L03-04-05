@@ -29,7 +29,7 @@ export class FavoriteComponent implements OnInit {
       favorites: this.favoriteService.getFavorites(),
       cart: this.cartService.getCart(),
     })
-      .subscribe(({favorites, cart}) => {
+      .subscribe(({ favorites, cart }) => {
         if ((favorites as DefaultResponseType).error !== undefined) {
           throw new Error((favorites as DefaultResponseType).message);
         }
