@@ -1,28 +1,31 @@
-import {Component, OnInit} from '@angular/core';
-import {OwlOptions} from "ngx-owl-carousel-o";
-import {ProductService} from "../../../shared/services/product.service";
-import {ProductType} from "../../../../types/product.type";
-import {ActivatedRoute} from "@angular/router";
-import {environment} from "../../../../environments/environment";
-import {CartType} from "../../../../types/cart.type";
-import {CartService} from "../../../shared/services/cart.service";
-import {FavoriteService} from "../../../shared/services/favorite.service";
-import {FavoriteType} from "../../../../types/favorite.type";
-import {DefaultResponseType} from "../../../../types/default-response.type";
-import {AuthService} from "../../../core/auth/auth.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProductService } from '../../../shared/services/product.service';
+import { ProductType } from '../../../../types/product.type';
+import { environment } from '../../../../environments/environment';
+import { CartType } from '../../../../types/cart.type';
+import { CartService } from '../../../shared/services/cart.service';
+import { FavoriteService } from '../../../shared/services/favorite.service';
+import { FavoriteType } from '../../../../types/favorite.type';
+import { DefaultResponseType } from '../../../../types/default-response.type';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-
   count: number = 1;
+
   recommendProducts: ProductType[] = [];
+
   product!: ProductType;
+
   serverStaticPath = environment.serverStaticPath;
+
   isLogged: boolean = false;
 
   customOptions: OwlOptions = {
@@ -36,27 +39,29 @@ export class DetailComponent implements OnInit {
     navText: ['', ''],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       400: {
-        items: 2
+        items: 2,
       },
       740: {
-        items: 3
+        items: 3,
       },
       940: {
-        items: 4
-      }
+        items: 4,
+      },
     },
-    nav: false
+    nav: false,
   };
 
-  constructor(private productService: ProductService,
-              private activatedRoute: ActivatedRoute,
-              private favoriteService: FavoriteService,
-              private authService: AuthService,
-              private _snackBar: MatSnackBar,
-              private cartService: CartService,) {
+  constructor(
+    private productService: ProductService,
+    private activatedRoute: ActivatedRoute,
+    private favoriteService: FavoriteService,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar,
+    private cartService: CartService,
+  ) {
     this.isLogged = authService.getIsLoggedIn();
   }
 
@@ -96,7 +101,7 @@ export class DetailComponent implements OnInit {
                 }
 
                 const products = data as FavoriteType[];
-                const currentProductExists = products.find(item => item.id === this.product.id);
+                const currentProductExists = products.find((item) => item.id === this.product.id);
                 if (currentProductExists) {
                   this.product.isInFavorite = true;
                 }
@@ -158,7 +163,7 @@ export class DetailComponent implements OnInit {
       this.favoriteService.removeFavorite(this.product.id)
         .subscribe((data: DefaultResponseType) => {
           if (data.error) {
-            //..
+            // ..
             throw new Error(data.message);
           }
 
@@ -175,5 +180,4 @@ export class DetailComponent implements OnInit {
         });
     }
   }
-
 }

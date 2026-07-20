@@ -1,6 +1,6 @@
-import {DeliveryType} from "./delivery.type";
-import {PaymentType} from "./payment.type";
-import {OrderStatusType} from "./order-status.type";
+import { DeliveryType } from './delivery.type';
+import { PaymentType } from './payment.type';
+import { OrderStatusType } from './order-status.type';
 
 export type OrderType = {
   deliveryType: DeliveryType,

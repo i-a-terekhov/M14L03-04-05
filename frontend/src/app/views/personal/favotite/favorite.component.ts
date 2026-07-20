@@ -1,22 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {FavoriteService} from "../../../shared/services/favorite.service";
-import {FavoriteType, FavoriteWithCartCountType} from "../../../../types/favorite.type";
-import {DefaultResponseType} from "../../../../types/default-response.type";
-import {environment} from "../../../../environments/environment";
-import {CartItemType, CartType} from "../../../../types/cart.type";
-import {CartService} from "../../../shared/services/cart.service";
-import {forkJoin} from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { FavoriteService } from '../../../shared/services/favorite.service';
+import { FavoriteType, FavoriteWithCartCountType } from '../../../../types/favorite.type';
+import { DefaultResponseType } from '../../../../types/default-response.type';
+import { environment } from '../../../../environments/environment';
+import { CartItemType, CartType } from '../../../../types/cart.type';
+import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-favorite',
   templateUrl: './favorite.component.html',
-  styleUrls: ['./favorite.component.scss']
+  styleUrls: ['./favorite.component.scss'],
 })
 export class FavoriteComponent implements OnInit {
-
   productsInFavorite: FavoriteType[] = [];
+
   productsInCart: CartItemType[] | null = null;
+
   favoriteProductsWithCartCount: FavoriteWithCartCountType[] = [];
+
   serverStaticPath = environment.serverStaticPath;
 
   constructor(private favoriteService: FavoriteService, private cartService: CartService) {
@@ -38,13 +40,12 @@ export class FavoriteComponent implements OnInit {
         this.productsInFavorite = favorites as FavoriteType[];
         this.productsInCart = (cart as CartType).items;
 
-
         this.productsInFavorite.forEach((favoriteItem: FavoriteType) => {
-          let currentItem: FavoriteType | FavoriteWithCartCountType = favoriteItem;
+          const currentItem: FavoriteType | FavoriteWithCartCountType = favoriteItem;
           (currentItem as FavoriteWithCartCountType).countInCart = 0;
 
           if (this.productsInCart && this.productsInCart.length > 0) {
-            let matchingItem = this.productsInCart.find(item => currentItem.id === item.product.id);
+            const matchingItem = this.productsInCart.find((item) => currentItem.id === item.product.id);
             if (matchingItem) {
               (currentItem as FavoriteWithCartCountType).countInCart = matchingItem.quantity;
             }
@@ -58,18 +59,17 @@ export class FavoriteComponent implements OnInit {
     this.favoriteService.removeFavorite(id)
       .subscribe((data: DefaultResponseType) => {
         if (data.error) {
-          //..
+          // ..
           throw new Error(data.message);
         }
 
-        this.favoriteProductsWithCartCount = this.favoriteProductsWithCartCount.filter(item => item.id !== id);
+        this.favoriteProductsWithCartCount = this.favoriteProductsWithCartCount.filter((item) => item.id !== id);
       });
   }
 
   addToCart(id: string): void {
     this._updateCountInProduct(1, id);
     this.updateCountOfProduct(1, id);
-
   }
 
   updateCountOfProduct(value: number, id: string): void {
@@ -95,7 +95,6 @@ export class FavoriteComponent implements OnInit {
   }
 
   _updateCountInProduct(newCount: number, id: string): void {
-    this.favoriteProductsWithCartCount.find(item => item.id === id)!.countInCart = newCount;
+    this.favoriteProductsWithCartCount.find((item) => item.id === id)!.countInCart = newCount;
   }
-
 }

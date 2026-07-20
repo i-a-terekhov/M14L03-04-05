@@ -1,29 +1,30 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {AuthService} from "../../../core/auth/auth.service";
-import {LoginResponseType} from "../../../../types/login-response.type";
-import {DefaultResponseType} from "../../../../types/default-response.type";
-import {HttpErrorResponse} from "@angular/common/http";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../core/auth/auth.service';
+import { LoginResponseType } from '../../../../types/login-response.type';
+import { DefaultResponseType } from '../../../../types/default-response.type';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   loginForm = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required]],
     rememberMe: [false],
   });
 
-  constructor(private fb: FormBuilder,
-              private authService: AuthService,
-              private _snackBar: MatSnackBar,
-              private router: Router,) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar,
+    private router: Router,
+  ) {
   }
 
   ngOnInit(): void {
@@ -60,7 +61,7 @@ export class LoginComponent implements OnInit {
             } else {
               this._snackBar.open('Ошибка авторизации');
             }
-          }
+          },
         });
     }
   }

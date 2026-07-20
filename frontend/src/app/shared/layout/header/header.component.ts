@@ -1,36 +1,45 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {AuthService} from "../../../core/auth/auth.service";
-import {DefaultResponseType} from "../../../../types/default-response.type";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Router} from "@angular/router";
-import {CategoryWithTypeType} from "../../../../types/category-with-type.type";
-import {CartService} from "../../services/cart.service";
-import {ProductService} from "../../services/product.service";
-import {ProductType} from "../../../../types/product.type";
-import {environment} from "../../../../environments/environment";
-import {FormControl} from "@angular/forms";
-import {debounceTime} from "rxjs";
+import {
+  Component, HostListener, Input, OnInit,
+} from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs';
+import { AuthService } from '../../../core/auth/auth.service';
+import { DefaultResponseType } from '../../../../types/default-response.type';
+import { CategoryWithTypeType } from '../../../../types/category-with-type.type';
+import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
+import { ProductType } from '../../../../types/product.type';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   searchField = new FormControl();
+
   showedSearch: boolean = false;
+
   products: ProductType[] = [];
+
   count: number = 0;
+
   isLogged: boolean = false;
+
   @Input() categories: CategoryWithTypeType[] = [];
+
   serverStaticPath = environment.serverStaticPath;
 
-  constructor(private authService: AuthService,
+  constructor(
+private authService: AuthService,
               private _snackBar: MatSnackBar,
               private router: Router,
               private productService: ProductService,
-              private cartService: CartService,) {
+              private cartService: CartService,
+  ) {
     this.isLogged = authService.getIsLoggedIn();
   }
 
@@ -39,7 +48,7 @@ export class HeaderComponent implements OnInit {
       .pipe(
         debounceTime(500),
       )
-      .subscribe(value => {
+      .subscribe((value) => {
         if (value && value.length > 2) {
           this.productService.searchProducts(value)
             .subscribe((data: ProductType[]) => {
@@ -59,7 +68,7 @@ export class HeaderComponent implements OnInit {
     this.getCartCount();
 
     this.cartService.count$
-      .subscribe(count => {
+      .subscribe((count) => {
         this.count = count;
       });
   }
@@ -83,7 +92,7 @@ export class HeaderComponent implements OnInit {
         },
         error: () => {
           this.doLogout();
-        }
+        },
       });
   }
 
@@ -109,7 +118,7 @@ export class HeaderComponent implements OnInit {
   // }
 
   selectProduct(url: string): void {
-    this.router.navigate(['/product/' + url]);
+    this.router.navigate([`/product/${url}`]);
     this.searchField.setValue('');
     this.products = [];
   }

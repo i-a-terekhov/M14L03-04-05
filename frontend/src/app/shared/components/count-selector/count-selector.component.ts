@@ -1,12 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  Component, EventEmitter, Input, OnInit, Output,
+} from '@angular/core';
 
 @Component({
   selector: 'count-selector',
   templateUrl: './count-selector.component.html',
-  styleUrls: ['./count-selector.component.scss']
+  styleUrls: ['./count-selector.component.scss'],
 })
 export class CountSelectorComponent implements OnInit {
-
   @Input() count: number = 1;
 
   @Output() onCountChange: EventEmitter<number> = new EventEmitter<number>();
@@ -36,5 +37,4 @@ export class CountSelectorComponent implements OnInit {
     this.count++;
     this.countChange();
   }
-
 }

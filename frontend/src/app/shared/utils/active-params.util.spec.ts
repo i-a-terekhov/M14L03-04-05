@@ -1,19 +1,17 @@
-import {ActiveParamsUtil} from "./active-params.util";
+import { ActiveParamsUtil } from './active-params.util';
 
 describe('active params util', () => {
-
   it('should change type of "types" from string into array', () => {
     const result = ActiveParamsUtil.processParams({
-      types: 'sukkulenti'
+      types: 'sukkulenti',
     });
 
     expect(result.types).toBeInstanceOf(Array);
   });
 
-
   it('should change type of "page": string into int', () => {
     const result = ActiveParamsUtil.processParams({
-      page: '2'
+      page: '2',
     });
 
     expect(result.page).toBe(2);
@@ -43,12 +41,9 @@ describe('active params util', () => {
 
   it('should throw away unexpectable property ("pages")', () => {
     const result: any = ActiveParamsUtil.processParams({
-      pages: '2'
+      pages: '2',
     });
 
     expect(result.pages).toBeUndefined();
   });
-
-
-
 });

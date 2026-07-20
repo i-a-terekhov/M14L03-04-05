@@ -1,4 +1,4 @@
-import {FavoriteType} from "./favorite.type";
+import { FavoriteType } from './favorite.type';
 
 export type CartType = {
   items: CartItemType[];
