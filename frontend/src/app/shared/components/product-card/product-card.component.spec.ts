@@ -7,6 +7,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {FavoriteService} from "../../services/favorite.service";
 import {of} from "rxjs";
 import {ProductType} from "../../../../types/product.type";
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('product card', () => {
 
@@ -29,7 +30,8 @@ describe('product card', () => {
         {provide: Router, useValue: routerSpy},
         {provide: MatSnackBar, useValue: _snackBarSpy},
         {provide: FavoriteService, useValue: favoriteServiceSpy},
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     });
     fixture = TestBed.createComponent(ProductCardComponent);
     productCardComponent = fixture.componentInstance;
@@ -51,6 +53,8 @@ describe('product card', () => {
         url: 'test',
       },
     };
+    productCardComponent.product = product;  // Пока productCardComponent.product не был задан в beforeEach, тесты завершались до отрисовки шаблона. Как только вы перенесли сюда product,
+    // тесты стали ближе к реальности и некоторые стали выкидывать ошибку, т.к. модуль тестов не импортировал CountSelectorComponent - это ошибка диктора
 
   });
 
@@ -81,8 +85,7 @@ describe('product card', () => {
         ]
       }
     ));
-
-    productCardComponent.product = product;
+    // productCardComponent.product = product;  // Вынесли эту строку в beforeEach
 
     productCardComponent.removeFromCart();
 
@@ -90,18 +93,23 @@ describe('product card', () => {
   });
 
   it('should hide product-card-info and product-card-extra if it is light card', () => {
-    productCardComponent.isLight = true;
-    productCardComponent.product = product;
-
+    productCardComponent.isLight = true;    // productCardComponent.product = product;  // Вынесли эту строку в beforeEach
     fixture.detectChanges();
 
     const componentElement: HTMLElement = fixture.nativeElement;
-    console.log(componentElement);
     const productCardInfo: HTMLElement | null = componentElement.querySelector('.product-card-info');
     const productCardExtra: HTMLElement | null = componentElement.querySelector('.product-card-extra');
 
     expect(productCardInfo).toBe(null);
     expect(productCardExtra).toBe(null);
   });
+
+  it('should call navigate for light card', () => {
+    let routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    productCardComponent.isLight = true;    // productCardComponent.product = product;  // Вынесли эту строку в beforeEach
+    productCardComponent.navigate();
+
+    expect(routerSpy.navigate).toHaveBeenCalled();
+  })
 
 });
