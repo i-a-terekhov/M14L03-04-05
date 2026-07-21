@@ -8,15 +8,22 @@
       "files": [
         "*.ts"
       ],
+      "parser": "@typescript-eslint/parser",
       "extends": [
-//        "eslint:recommended",
-//        "plugin:@typescript-eslint/recommended",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
         "eslint-config-airbnb-base"
       ],
       "rules": {
         "semi": "error",
+        "dot-notation": "off",
+        "@typescript-eslint/dot-notation": "off",
+        "no-undef": "off",
+        "max-len": "off",
+        "import/no-unresolved": "off",
+        "import/prefer-default-export": "off",
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -33,13 +40,8 @@
             "style": "kebab-case"
           }
         ],
-        "dot-notation": "off",
-        "@typescript-eslint/dot-notation": "off",
-        "no-undef": "off",
-        "no-unused-vars": "off",
-        "import/no-unresolved": "off",
-        "import/prefer-default-export": "off",
-        "max-len": "off"
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "no-unused-vars": "off"
       }
     },
     {
@@ -47,8 +49,8 @@
         "*.html"
       ],
       "extends": [
-        "plugin:@angular-eslint/template/recommended"
-//        "plugin:@angular-eslint/template/accessibility"
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
     }
