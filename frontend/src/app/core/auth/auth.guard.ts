@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private _snackBar: MatSnackBar) {
+  constructor(private authService: AuthService, private snackBar: MatSnackBar) {
   }
 
   canActivate(
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const isLoggedIn = this.authService.getIsLoggedIn();
     if (!isLoggedIn) {
-      this._snackBar.open('Для доступа необходимо авторизоваться');
+      this.snackBar.open('Для доступа необходимо авторизоваться');
     }
     return isLoggedIn;
   }

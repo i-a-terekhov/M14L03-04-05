@@ -59,7 +59,7 @@ export class DetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private favoriteService: FavoriteService,
     private authService: AuthService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private cartService: CartService,
   ) {
     this.isLogged = authService.getIsLoggedIn();
@@ -155,7 +155,7 @@ export class DetailComponent implements OnInit {
 
   updateFavorite() {
     if (!this.isLogged) {
-      this._snackBar.open('Для добавления в избранное необходимо авторизоваться');
+      this.snackBar.open('Для добавления в избранное необходимо авторизоваться');
       return;
     }
 

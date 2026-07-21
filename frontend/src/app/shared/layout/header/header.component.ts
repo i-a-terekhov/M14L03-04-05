@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
 private authService: AuthService,
-              private _snackBar: MatSnackBar,
+              private snackBar: MatSnackBar,
               private router: Router,
               private productService: ProductService,
               private cartService: CartService,
@@ -99,7 +99,7 @@ private authService: AuthService,
   doLogout(): void {
     this.authService.removeTokens();
     this.authService.userId = null;
-    this._snackBar.open('Вы вышли из системы');
+    this.snackBar.open('Вы вышли из системы');
     this.router.navigate(['/']);
   }
 

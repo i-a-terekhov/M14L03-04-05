@@ -60,7 +60,7 @@ export class OrderComponent implements OnInit {
     private orderService: OrderService,
     private userService: UserService,
     private authService: AuthService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private fb: FormBuilder,
   ) {
@@ -76,7 +76,7 @@ export class OrderComponent implements OnInit {
 
         this.cart = data as CartType;
         if (!this.cart || (this.cart && this.cart.items.length === 0)) {
-          this._snackBar.open('Корзина пустая');
+          this.snackBar.open('Корзина пустая');
           this.router.navigate(['/']);
           return;
         }
@@ -194,15 +194,15 @@ export class OrderComponent implements OnInit {
           },
           error: (errorResponse: HttpErrorResponse) => {
             if (errorResponse.error && errorResponse.error.message) {
-              this._snackBar.open(errorResponse.error.message);
+              this.snackBar.open(errorResponse.error.message);
             } else {
-              this._snackBar.open('Ошибка заказа');
+              this.snackBar.open('Ошибка заказа');
             }
           },
         });
     } else {
       this.orderForm.markAllAsTouched();
-      this._snackBar.open('Заполните необходимые поля');
+      this.snackBar.open('Заполните необходимые поля');
     }
   }
 

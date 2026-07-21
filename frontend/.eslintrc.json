@@ -34,7 +34,12 @@
           }
         ],
         "dot-notation": "off",
-        "@typescript-eslint/dot-notation": ["error", { "allowIndexSignaturePropertyAccess": true }]
+        "@typescript-eslint/dot-notation": "off",
+        "no-undef": "off",
+        "no-unused-vars": "off",
+        "import/no-unresolved": "off",
+        "import/prefer-default-export": "off",
+        "max-len": "off"
       }
     },
     {

@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private router: Router,
   ) {
   }
@@ -48,20 +48,20 @@ export class SignupComponent implements OnInit {
             }
 
             if (error) {
-              this._snackBar.open(error);
+              this.snackBar.open(error);
               throw new Error(error);
             }
 
             this.authService.setTokens(loginResponse.accessToken, loginResponse.refreshToken);
             this.authService.userId = loginResponse.userId;
-            this._snackBar.open('Вы успешно зарегистрировались');
+            this.snackBar.open('Вы успешно зарегистрировались');
             this.router.navigate(['/']);
           },
           error: (errorResponse: HttpErrorResponse) => {
             if (errorResponse.error && errorResponse.error.message) {
-              this._snackBar.open(errorResponse.error.message);
+              this.snackBar.open(errorResponse.error.message);
             } else {
-              this._snackBar.open('Ошибка регистрации');
+              this.snackBar.open('Ошибка регистрации');
             }
           },
         });

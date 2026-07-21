@@ -36,7 +36,7 @@ export class InfoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
   ) {
   }
 
@@ -111,18 +111,18 @@ export class InfoComponent implements OnInit {
         .subscribe({
           next: (data: DefaultResponseType) => {
             if (data.error) {
-              this._snackBar.open(data.message);
+              this.snackBar.open(data.message);
               throw new Error(data.message);
             }
 
-            this._snackBar.open('Данные успешно сохранены');
+            this.snackBar.open('Данные успешно сохранены');
             this.userInfoForm.markAsPristine();
           },
           error: (errorResponse: HttpErrorResponse) => {
             if (errorResponse.error && errorResponse.error.message) {
-              this._snackBar.open(errorResponse.error.message);
+              this.snackBar.open(errorResponse.error.message);
             } else {
-              this._snackBar.open('Ошибка сохранения');
+              this.snackBar.open('Ошибка сохранения');
             }
           },
         });

@@ -18,7 +18,7 @@ describe('product card', () => {
     const cartServiceSpy = jasmine.createSpyObj('CartService', ['updateCart']);
     const authServiceSpy = jasmine.createSpyObj('AuthService', ['getIsLoggedIn']);
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    const _snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
+    const snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
     const favoriteServiceSpy = jasmine.createSpyObj('FavoriteService', ['removeFavorite', 'addFavorite']);
 
     TestBed.configureTestingModule({
@@ -27,7 +27,7 @@ describe('product card', () => {
         { provide: CartService, useValue: cartServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
-        { provide: MatSnackBar, useValue: _snackBarSpy },
+        { provide: MatSnackBar, useValue: snackBarSpy },
         { provide: FavoriteService, useValue: favoriteServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA],

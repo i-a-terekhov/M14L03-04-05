@@ -68,7 +68,7 @@ export class FavoriteComponent implements OnInit {
   }
 
   addToCart(id: string): void {
-    this._updateCountInProduct(1, id);
+    this.updateCountInProduct(1, id);
     this.updateCountOfProduct(1, id);
   }
 
@@ -78,7 +78,7 @@ export class FavoriteComponent implements OnInit {
         if ((data as DefaultResponseType).error !== undefined) {
           throw new Error((data as DefaultResponseType).message);
         } else {
-          this._updateCountInProduct(value, id);
+          this.updateCountInProduct(value, id);
         }
       });
   }
@@ -90,11 +90,11 @@ export class FavoriteComponent implements OnInit {
           throw new Error((data as DefaultResponseType).message);
         }
 
-        this._updateCountInProduct(0, id);
+        this.updateCountInProduct(0, id);
       });
   }
 
-  _updateCountInProduct(newCount: number, id: string): void {
+  private updateCountInProduct(newCount: number, id: string): void {
     this.favoriteProductsWithCartCount.find((item) => item.id === id)!.countInCart = newCount;
   }
 }

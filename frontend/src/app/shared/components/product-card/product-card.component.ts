@@ -32,7 +32,7 @@ export class ProductCardComponent implements OnInit {
     private cartService: CartService,
     private authService: AuthService,
     private router: Router,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private favoriteService: FavoriteService,
   ) {
   }
@@ -82,7 +82,7 @@ export class ProductCardComponent implements OnInit {
 
   updateFavorite() {
     if (!this.authService.getIsLoggedIn()) {
-      this._snackBar.open('Для добавления в избранное необходимо авторизоваться');
+      this.snackBar.open('Для добавления в избранное необходимо авторизоваться');
       return;
     }
 
